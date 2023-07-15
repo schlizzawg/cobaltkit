@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  caddy:
+        image: caddy:2-alpine
+        ports:
+          - 80:80/tcp
+          - 443:443/tcp
+          - 443:443/udp
+        volumes:
+          - ./conf/Caddyfile.${COBALT_MODE}:/etc/caddy/Caddyfile:ro
+          - caddy_data:/data
+        environment:
+          - WEB_DOMAIN=${WEB_DOMAIN}
+          - API_DOMAIN=${API_DOMAIN}
+  api:
+        # todo: change this to wukko/cobalt once #151 is merged
+        image: ghcr.io/dumbmoron/cobalt:latest
+        environment:
+            - apiPort=9000
+            - apiURL=https://${API_DOMAIN}/
+            - apiName=${API_NAME}
+            - cors=${CORS}
+        restart: unless-stopped
+        depends_on: ["caddy"]
+  web:
+        # todo: change this to wukko/cobalt once #151 is merged
+        image: ghcr.io/dumbmoron/cobalt:latest
+        environment:
+            - webPort=9000
+            - webURL=https://${WEB_DOMAIN}/
+            - apiURL=https://${API_DOMAIN}/
+            - cors=${CORS}
+        restart: unless-stopped
+        depends_on: ["caddy"]
+
+
+volumes:
+  caddy_data:
