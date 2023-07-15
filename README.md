@@ -1,13 +1,27 @@
 # cobaltkit
-idiot-proof composefile for running @wukko/cobalt
+idiot-proof composefile for running [@wukko/cobalt](https://github.com/wukko/cobalt)
 
-note that you cannot use this if you use the same server for serving HTTP content via a different, already installed server such as nginx
+Note: you **cannot use this** on a server that already has a running webserver. You will need to set up cobalt yourself and set up your webserver to proxy it.
+
+### prerequisites
+- latest version of `docker` *(or `podman`**[*](#additional-setup-podman)**)*
+- git
+- (sub)domain/s you want to use
+  - *can be a normal domain, or something you got for free, such as a subdomain from freedns.afraid.org*
 
 ### setup
-- install docker; *if you have it installed, make sure it's working. (the command `docker ps` should not result in an error)*
-- copy `.env.example` to `.env` and edit `.env`:
-    - if running both web and API (`COBALT_MODE=both`), set WEB_DOMAIN and API_DOMAIN
-    - if running only API, set `COBALT_MODE` to `api` and set API_DOMAIN
-    - make sure the particular domain/s' DNS A record is pointing to the server
-- run `docker compose up -d`
-- wait for caddy to acquire certificate/s
+- clone this repo *(`git clone https://github.com/dumbmoron/cobaltkit.git`)*
+- copy `.env.example` to `.env` and edit `.env` - contains additional guidance within
+- **highly recommended:** if you are on Linux, you can run `./check.sh` to verify your configuration is correct
+- run:
+    - `docker compose up -d api` if you changed `COBALT_MODE` to `api`
+    - `docker compose up -d` otherwise
+
+### additional setup: podman
+this only applies if you want to use podman.
+
+you will need:
+- podman-compose
+- network_backend must be `netavark` for DNS resolution 
+
+setting this up is beyond the scope of this project, consult google
