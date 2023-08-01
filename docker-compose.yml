@@ -7,6 +7,7 @@ services:
         environment:
             - WEB_DOMAIN=${WEB_DOMAIN}
             - API_DOMAIN=${API_DOMAIN}
+            - NODE_ENV=production
         ports:
             - 80:80/tcp
             - 443:443/tcp
@@ -26,6 +27,7 @@ services:
             - apiURL=https://${API_DOMAIN}/
             - apiName=${API_NAME}
             - cors=${CORS}
+            - NODE_ENV=production
         depends_on: ["caddy"]
         labels:
             - com.centurylinklabs.watchtower.scope=cobaltkit
