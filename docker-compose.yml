@@ -18,8 +18,7 @@ services:
         labels:
             - com.centurylinklabs.watchtower.scope=cobaltkit
   api:
-        # todo: change this to wukko/cobalt once #151 is merged
-        image: ghcr.io/dumbmoron/cobalt:latest
+        image: ghcr.io/wukko/cobalt:latest
         init: true
         restart: unless-stopped
         environment:
@@ -32,8 +31,7 @@ services:
         labels:
             - com.centurylinklabs.watchtower.scope=cobaltkit
   web:
-        # todo: change this to wukko/cobalt once #151 is merged
-        image: ghcr.io/dumbmoron/cobalt:latest
+        image: ghcr.io/wukko/cobalt:latest
         init: true
         restart: unless-stopped
         environment:
