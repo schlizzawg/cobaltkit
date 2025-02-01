@@ -16,3 +16,5 @@ Note: you **cannot use this** on a server that already has a running webserver. 
 - run:
     - `docker compose up -d api` if you changed `COBALT_MODE` to `api`
     - `docker compose up -d` otherwise
+
+This project is tested with BrowserStack
